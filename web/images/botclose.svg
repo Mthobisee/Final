@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 84 84" style="enable-background:new 0 0 84 84;" xml:space="preserve">
+  <style type="text/css">
+    .st0{clip-path:url(#SVGID_2_);enable-background:new ;} .st1{clip-path:url(#SVGID_4_);} .st2{clip-path:url(#SVGID_6_);fill:#007582;} .st3{clip-path:url(#SVGID_8_);fill:#FFFFFF;} .st4{clip-path:url(#SVGID_10_);enable-background:new ;} .st5{clip-path:url(#SVGID_12_);} .st6{clip-path:url(#SVGID_14_);fill:#15A3B2;} .st7{clip-path:url(#SVGID_16_);} .st8{clip-path:url(#SVGID_18_);fill:#FFFFFF;}
+  </style>
+  <g>
+    <defs>
+      <circle id="SVGID_9_" cx="42" cy="42" r="36"/>
+    </defs>
+    <clipPath id="SVGID_2_">
+      <use xlink:href="#SVGID_9_" style="overflow:visible;"/>
+    </clipPath>
+    <g class="st0">
+      <g>
+        <defs>
+          <path id="SVGID_11_" d="M0.7 0.7H83.7V83.7H0.7z"/>
+        </defs>
+        <clipPath id="SVGID_4_">
+          <use xlink:href="#SVGID_11_" style="overflow:visible;"/>
+        </clipPath>
+        <g class="st1">
+          <defs>
+            <path id="SVGID_13_" d="M5.7 5.7H78.7V78.7H5.7z"/>
+          </defs>
+          <clipPath id="SVGID_6_">
+            <use xlink:href="#SVGID_13_" style="overflow:visible;"/>
+          </clipPath>
+          <path class="st2" d="M1 1H83V83H1z"/>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g>
+    <defs>
+      <path id="SVGID_15_" d="M52.2 49.6L44.5 42 52.2 34.4 49.6 31.8 42 39.5 34.4 31.8 31.8 34.4 39.5 42 31.8 49.6 34.4 52.2 42 44.5 49.6 52.2z"/>
+    </defs>
+    <clipPath id="SVGID_8_">
+      <use xlink:href="#SVGID_15_" style="overflow:visible;"/>
+    </clipPath>
+    <g style="clip-path:url(#SVGID_8_);">
+      <defs>
+        <path id="SVGID_17_" d="M-1325.3 -779.3H114.70000000000005V601.7H-1325.3z"/>
+      </defs>
+      <clipPath id="SVGID_10_">
+        <use xlink:href="#SVGID_17_" style="overflow:visible;"/>
+      </clipPath>
+      <path transform="matrix(0.7071 -0.7071 0.7071 0.7071 -17.397 42)" style="clip-path:url(#SVGID_10_);fill:#FFFFFF;" d="M24.4 24.4H59.6V59.6H24.4z"/>
+    </g>
+  </g>
+</svg>
