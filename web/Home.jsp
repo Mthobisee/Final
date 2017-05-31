@@ -43,7 +43,7 @@ Welcome <%=session.getAttribute("userid")%>
 %>
 
 <body>
-  <p>Hello</p>
+
   <div class="floating-container mobile-float ">
     <div class="card-panel search-panel action ">
       <div class="row">
