@@ -81,6 +81,7 @@ var option =  new Array();
 var keywords = new Array();
 var responses = new Array();
 var accType;
+var pinType;
 var inpu = msg;
 
 
@@ -92,17 +93,17 @@ function popData() {
     
   $.get('Chats',function(responseJson) {
           if(responseJson!==null){
-               
-                
+   
                    for(var k in responseJson){
                    keye = k + 1;
                    if(responseJson.hasOwnProperty(k)){
-                       option[k] = (responseJson[k]["options"]);
-                       keywords[k] = responseJson[k]["keywords"];
+                       option[k] = (responseJson[k]["options"]).toString().split('|');
+                       keywords[k] = responseJson[k]["keywords"].toString().split('|');
                        responses[k] = responseJson[k]["responses"];
                    }
                    
                    if(lowerm.indexOf(keywords[k].toString().toLowerCase()) > -1){
+                       accType = "";
                        $('.message.loading').remove();
                       $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + responses[k] + '</div>').appendTo($('.mCSB_container')).addClass('new');            
                        if(responses[k] === "Hi, there sure thing-is it for private car or business"){
@@ -111,7 +112,6 @@ function popData() {
                             $('a').on('click', function(){
                              if($(this).attr('id') === 'select1'){
                                   accType = "private";
-                                  
                                   $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + "Excellent please give me your ID number so I can log you in securely:" + '</div>').appendTo($('.mCSB_container')).addClass('new');            
                                 
                               }else if($(this).attr('id') === 'select2'){
@@ -247,6 +247,7 @@ function popData() {
                           return false;
                           keye = keye - 1;
                     }else if(lowerm === "Settlement Request Page"){
+                        accType = "";
                           $('.message.loading').remove();
                           $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + "Redirecting to Settlement Request page......" + '</div>').appendTo($('.mCSB_container')).addClass('new');
                          
@@ -293,6 +294,7 @@ function popData() {
                                    
                         return false;
                       }else if(keywords[k].toString().toLowerCase() === "lost"){
+                         
                           setTimeout(function() {
                                 
                                 if(msg.indexOf("yes".toLowerCase()) > -1){
@@ -318,106 +320,143 @@ function popData() {
                    
                 
     });
-
+ 
+   
     valid();
-    
+     
     return false;
 }
 
 function valid(){
     if(accType === "private"){
-           
+       
+         
          var idInput = parseInt(msg);
          if(Number.isInteger(idInput) && msg.length === 13){
                 $('.message.loading').remove();                
                 $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + "Thank you request for ID no: " + msg + " for private statement,a one time pin has been send to your phone" + '</div>').appendTo($('.mCSB_container')).addClass('new');            
-                 msg = null; 
-                
+                pinType = "private";
+                smsPin(); 
+                 msg ="";
+                return false;  
          }else{
                 $('.message.loading').remove();                     
-                $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + "Incorrect ID" + '</div>').appendTo($('.mCSB_container')).addClass('new');            
-                 msg = null;  
-               
+                $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + "Wrong ID, please try again." + '</div>').appendTo($('.mCSB_container')).addClass('new');            
+                 msg = "";  
+               return false;  
          }
-       
-                                   
+         
+                    
+             
+         return false;                        
     }else if(accType === "business"){
          var idInput = parseInt(msg);
          if(Number.isInteger(idInput) && msg.length === 13){
                 $('.message.loading').remove();                 
                 $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + "Thank you request for ID no: " + msg + " for business statement,a one time pin has been send to your phone" + '</div>').appendTo($('.mCSB_container')).addClass('new');            
-                msg = null;  
-                
+                 setTimeout(function() {
+                $('.message.loading').remove();                
+                $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + "Please enter the OTP sent to your phone" + '</div>').appendTo($('.mCSB_container')).addClass('new');            
+                 
+    
+            }, 100 + (Math.random() * 20) * 100);
+              
+                msg = "";  
+                return false;  
          }else{
                 $('.message.loading').remove();                 
-                $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + "Incorrect ID" + '</div>').appendTo($('.mCSB_container')).addClass('new');     
-                msg = null; 
-                
+                $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + "Wrong ID, please try again." + '</div>').appendTo($('.mCSB_container')).addClass('new');     
+                msg = ""; 
+                return false;  
         } 
-       
-      
+       accType = "";
+      return false; 
     }else if(accType === "quotation"){
          var idInput = parseInt(msg);
          if(Number.isInteger(idInput) && msg.length === 13){
                 $('.message.loading').remove();                  
                 $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + "Thank you request for ID no: " + msg + " for Quotation,a one time pin has been send to your phone" + '</div>').appendTo($('.mCSB_container')).addClass('new');            
-                msg = null;  
-                
+                 setTimeout(function() {
+                $('.message.loading').remove();                
+                $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + "Please enter the OTP sent to your phone" + '</div>').appendTo($('.mCSB_container')).addClass('new');            
+               
+            }, 100 + (Math.random() * 20) * 100);
+              
+                msg = "";  
+                return false;  
          }else{
                 $('.message.loading').remove();                 
-                $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + "Incorrect ID" + '</div>').appendTo($('.mCSB_container')).addClass('new');     
-                msg = null; 
-                
+                $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + "Wrong ID, please try again." + '</div>').appendTo($('.mCSB_container')).addClass('new');     
+                msg = ""; 
+                return false;  
         } 
-       
-      
+       accType = "";
+      return false; 
     }else if(accType === "account balance"){
          var idInput = parseInt(msg);
          if(Number.isInteger(idInput) && msg.length === 13){
                 $('.message.loading').remove();                  
                 $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + "Thank you request for ID no: " + msg + " for account balance,a one time pin has been send to your phone" + '</div>').appendTo($('.mCSB_container')).addClass('new');            
-                msg = null;  
-                
+                msg = "";
+                 setTimeout(function() {
+                $('.message.loading').remove();                
+                $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + "Please enter the OTP sent to your phone" + '</div>').appendTo($('.mCSB_container')).addClass('new');            
+               
+            }, 100 + (Math.random() * 20) * 100);
+              
+                return false;  
          }else{
                 $('.message.loading').remove();                 
-                $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + "Incorrect ID" + '</div>').appendTo($('.mCSB_container')).addClass('new');     
-                msg = null; 
-                
+                $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + "Wrong ID, please try again." + '</div>').appendTo($('.mCSB_container')).addClass('new');     
+                msg = ""; 
+                return false;  
         } 
-       
-      
+       accType = "";
+      return false; 
     }else if(accType === "mail"){
          var idInput = parseInt(msg);
          if(Number.isInteger(idInput) && msg.length === 13){
                 $('.message.loading').remove();                
                 $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + "Thank you request for ID no: " + msg + " for tax certificate,a one time pin has been send to your phone" + '</div>').appendTo($('.mCSB_container')).addClass('new');            
-                msg = null;  
-                
+                msg = "";  
+                return false;  
          }else{
                 $('.message.loading').remove();                  
-                $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + "Incorrect ID" + '</div>').appendTo($('.mCSB_container')).addClass('new');     
-                msg = null; 
-                
+                $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + "Wrong ID, please try again." + '</div>').appendTo($('.mCSB_container')).addClass('new');     
+             setTimeout(function() {
+                $('.message.loading').remove();                
+                $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + "Please enter the OTP sent to your phone" + '</div>').appendTo($('.mCSB_container')).addClass('new');            
+               
+            }, 100 + (Math.random() * 20) * 100);
+                  
+            msg = ""; 
+                return false;  
         } 
-       
-      
+      accType = "";
+      return false; 
     }else if(accType === "download"){
          var idInput = parseInt(msg);
          if(Number.isInteger(idInput) && msg.length === 13){
                 $('.message.loading').remove();                  
                 $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + "Thank you request for ID no: " + msg + " for tax certificate,a one time pin has been send to your phone" + '</div>').appendTo($('.mCSB_container')).addClass('new');            
-                msg = null;  
-                
+                 setTimeout(function() {
+                $('.message.loading').remove();                
+                $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + "Please enter the OTP sent to your phone" + '</div>').appendTo($('.mCSB_container')).addClass('new');            
+               
+            }, 100 + (Math.random() * 20) * 100);
+            
+            msg = "";  
+                return false;  
          }else{
                 $('.message.loading').remove();                 
-                $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + "Incorrect ID" + '</div>').appendTo($('.mCSB_container')).addClass('new');     
-                msg = null; 
-                
+                $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + "Wrong ID, please try again." + '</div>').appendTo($('.mCSB_container')).addClass('new');     
+                msg = ""; 
+                return false;  
         } 
-       
-      
+       accType = "";
+      return false; 
     }
-    
+    accType = "";
     return false;
 }
 
@@ -502,4 +541,40 @@ function sendMail(to,subject){
     }
 }
 
+function smsPin(){
+ if(pinType === "private"){       
+                     console.log("Here1");
+                     setTimeout(function() {
+                     $('.message.loading').remove();                
+                     $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + "Please enter the OTP sent to your phone" + '</div>').appendTo($('.mCSB_container')).addClass('new');            
+                 
+                    }, 100 + (Math.random() * 20) * 100);
+                    msg = "";
+                    pinType = "";
+           return false;     
+}
+              
+     /* var idInput = parseInt(msg);
+         console.log("Here 2 " + idInput);
+         if(Number.isInteger(idInput) && msg.length === 4){
+             console.log("Inside if");
+              $('.message.loading').remove();                 
+              $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + "Correct OTP, please give me a minute processing your request...." + '</div>').appendTo($('.mCSB_container')).addClass('new');     
+              setTimeout(function() {
+                $('.message.loading').remove();                
+                $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + "Done" + '</div>').appendTo($('.mCSB_container')).addClass('new');            
+               
+              }, 100 + (Math.random() * 20) * 100);
+            
+            return false; 
+         }else{
+              $('.message.loading').remove();
+              $('<div class="message new"><figure class="avatar"><img src="images/ico_WesBank_chat.svg" /></figure>' + "Correct OTP, please give me a minute processing your request...." + '</div>').appendTo($('.mCSB_container')).addClass('new');     
+             msg = "";
+             return false; 
+         }*/
+            msg = "";
+                    pinType = "";
+           return false;
+}
 
